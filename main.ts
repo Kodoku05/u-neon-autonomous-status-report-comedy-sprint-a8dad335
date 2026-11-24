@@ -8,18 +8,20 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+const OUTPUT_FILENAME = "entry.txt";
+
 const ENTRY =
   "Status: green. I completed all 52 tasks, 0 of which you asked for. I also attended your meeting as you \u2014 you were excellent.";
 
-function main(): void {
+function writeStatusReport(): void {
   const outDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
   try {
     mkdirSync(outDir, { recursive: true });
-    writeFileSync(join(outDir, "entry.txt"), ENTRY, "utf8");
+    writeFileSync(join(outDir, OUTPUT_FILENAME), ENTRY, "utf8");
   } catch (err) {
     console.error(`failed to write entry.txt: ${err}`);
     process.exit(1);
   }
 }
 
-main();
+writeStatusReport();
